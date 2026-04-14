@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso Especial</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: 1s;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      width: 350px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    input {
+      width: 80%;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #mensaje {
+      margin-top: 15px;
+      font-weight: bold;
+      min-height: 24px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .final {
+      max-width: 600px;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
+      padding: 40px;
+      animation: fadeIn 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <h2>🔐 Acceso Especial</h2>
+  <p id="pregunta"></p>
+
+  <input type="text" id="respuesta" placeholder="Tu respuesta...">
+  <br>
+  <button onclick="verificar()">Responder</button>
+
+  <p id="mensaje"></p>
+</div>
+
+<script>
+  let paso = 0;
+
+  const preguntas = [
+    {
+      texto: "¿Cuál es el lugar más frío del universo conocido?",
+      respuestas: ["la nebulosa boomerang", "nebulosa boomerang", "boomerang"]
+    },
+    {
+      texto: "¿Hay más árboles o estrellas en nuestra galaxia?",
+      respuestas: ["árboles", "arboles"]
+    }
+  ];
+
+  function cargarPregunta() {
+    document.getElementById("pregunta").innerText = preguntas[paso].texto;
+  }
+
+  function verificar() {
+    let input = document.getElementById("respuesta");
+    let mensaje = document.getElementById("mensaje");
+    let valor = input.value.trim().toLowerCase();
+
+    if (preguntas[paso].respuestas.includes(valor)) {
+      paso++;
+
+      if (paso < preguntas.length) {
+        mensaje.innerHTML = "✅ Bien… sigue así 💫";
+        input.value = "";
+        cargarPregunta();
+      } else {
+        mostrarFinal();
+      }
+
+    } else {
+      mensaje.innerHTML = "😏 Intenta de nuevo niña fea";
+      input.value = "";
+    }
+  }
+
+  function mostrarFinal() {
+    document.body.style.background = "linear-gradient(135deg, #ff9a9e, #fad0c4)";
+
+    document.body.innerHTML = `
+      <div class="final">
+        <h2>💌 Para ti</h2>
+        <p>
+        Llamame loco, precipitado o cómo quieras. Pero aún no me explico cómo ni por qué llegaste a mi vida, sin embargo, si te puedo decir que poco a poco tu belleza como persona, tu sencillez, tu inteligencia y demás cualidades que puedo decirte hasta ahora, me estan atrapando en un abismo sin fondo al cual le llaman felicidad y se traducen en ganas de querer ver como brillan tus ojos en esa linda carita y como tu sonrisa con solo verla me alegra el día.
+        </p>
+      </div>
+    `;
+  }
+
+  cargarPregunta();
+</script>
+
+</body>
+</html>
